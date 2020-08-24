@@ -13,13 +13,7 @@ class Session
 
     public static function set($name, $value)
     {
-        if ( ! (self::exists($name))) {
-            $_SESSION[$name] = $value;
-
-            return true;
-        }
-
-        return false;
+        $_SESSION[$name] = $value;
     }
 
     public static function get($name)
@@ -41,4 +35,5 @@ class Session
 
         return false;
     }
+
 }

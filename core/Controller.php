@@ -8,4 +8,9 @@ abstract class Controller
     {
         $this->view = new View();
     }
+
+    public function notFound()
+    {
+        $this->view->render('404/404');
+    }
 }

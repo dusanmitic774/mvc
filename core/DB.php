@@ -65,7 +65,7 @@ class DB
      * "SELECT * FROM table_name WHERE `id` < ? AND `lname` = ?
      *
      * @param array $conditions List of lists where each inside list
-     * has 3 elsements. First element is column name, second is operator,
+     * has 3 elements. First element is column name, second is operator,
      * third is value. example: [['id', '<', '4'], ['lname', '=', 'Mitic']]
      * Values will be but in $this->>conditions to be bound later.
      *
@@ -126,7 +126,7 @@ class DB
      */
     public function limit($limit)
     {
-        $limit       = htmlspecialchars($limit);
+        $limit       = esc($limit);
         $this->query .= " LIMIT {$limit}";
 
         return $this;
@@ -147,6 +147,13 @@ class DB
 
         $this->addClause();
 
+
+        return $this;
+    }
+
+    public function first($limit = 1)
+    {
+        $this->orderBy()->limit($limit);
 
         return $this;
     }
@@ -186,7 +193,7 @@ class DB
     public function delete($table, $id = '')
     {
         $this->query = "DELETE FROM {$table} WHERE ";
-        $this->setConditions([self::PRIMARY_KEY, '=', $id]);
+        $this->setConditions([self::PRIMARY_KEY, '=', esc($id)]);
         $this->addClause();
 
         return $this->query();
@@ -208,7 +215,7 @@ class DB
             foreach ($data as $column => $value) {
                 $columns .= $column . ', ';
                 $values  .= '?, ';
-                $this->setConditions([null, null, $value]);
+                $this->setConditions([null, null, esc($value)]);
             }
             $columns = rtrim($columns, ', ');
             $values  = rtrim($values, ', ');
@@ -233,7 +240,7 @@ class DB
 
         foreach ($columns_and_values as $column => $value) {
             $set .= $column . ' = ?, ';
-            $this->setConditions([null, null, $value]);
+            $this->setConditions([null, null, esc($value)]);
         }
         $set = rtrim($set, ', ');
 
@@ -246,6 +253,7 @@ class DB
     public function get()
     {
         $this->query();
+        $this->conditions = [];
 
         return $this->results;
     }

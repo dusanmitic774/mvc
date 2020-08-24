@@ -8,10 +8,6 @@ class Route
     public static function get($route, $controller_and_action)
     {
         self::addRoute('GET', $route, $controller_and_action);
-
-        $route = new Route();
-
-        return $route;
     }
 
     public static function post($route, $controller_and_action)
@@ -48,6 +44,7 @@ class Route
     public static function run($method, $url)
     {
         $params = [];
+//        $flag   = true;
 
         if ( ! empty(self::$routes[$method])) {
             foreach (self::$routes[$method] as $route => $controller_and_action) {
@@ -61,6 +58,7 @@ class Route
                         call_user_func_array([new $controller(), $action], $params);
 
                         return true;
+//                        $flag = false;
                     } else {
                         echo('Method doesnt exist.');
                     }

@@ -5,14 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add News</title>
+    <title>Update</title>
 </head>
 <body>
 
-<form action="/users/store" method="post">
+<form action="/users/update" method="post">
     <input type="hidden" name="token" value="<?php echo Token::set(); ?>">
+    <input type="hidden" name="id" value="<?php echo $user->id; ?>">
     <label> Username:
-        <input type="text" name="username" value="<?php echo Input::postData('username'); ?>">
+        <input type="text" name="username" value="<?php echo $user->username ?>">
     </label><br>
     <?php if (Session::exists('username')): ?>
         <p>
@@ -30,7 +31,7 @@
     <?php endif; ?>
 
     <label> Email:
-        <input type="email" name="email" value="<?php echo Input::postData('email') ?>">
+        <input type="email" name="email" value="<?php echo $user->email; ?>">
     </label><br>
     <?php if (Session::exists('email')): ?>
         <p>
@@ -38,7 +39,7 @@
         </p>
     <?php endif; ?>
 
-    <input type="submit" name="btn" value="Register">
+    <input type="submit" name="btn">
 
 </form>
 </body>

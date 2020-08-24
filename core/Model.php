@@ -1,6 +1,7 @@
 <?php
+require_once CORE . 'Validation.php';
 
-class Model
+class Model extends Validation
 {
     protected $pdo;
 
