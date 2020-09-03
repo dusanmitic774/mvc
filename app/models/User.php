@@ -7,6 +7,9 @@ use Token;
 
 class User extends Model
 {
+    public $isLoggedIn = null;
+    public $data;
+
     public function __construct()
     {
         parent::__construct('users');

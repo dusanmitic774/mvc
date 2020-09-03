@@ -2,6 +2,7 @@
 
 class Flash
 {
+    // used for single message
     public static function msg($name, $string = '')
     {
         if (Session::exists($name)) {
@@ -14,12 +15,11 @@ class Flash
         }
     }
 
+    // used for validation errors
     public static function errors($errors)
     {
         foreach ($errors as $field => $messages) {
             Flash::msg($field, $messages[0]);
         }
     }
-
-
 }

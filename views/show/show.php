@@ -9,5 +9,14 @@
 </head>
 <body>
 <h2><?php echo $user->username; ?> profile</h2>
+<?php echo Flash::msg('image'); ?>
+
+<form action="<?php echo BASE_URL; ?>/users/upload/<?php echo $user->id; ?>" method="post"
+      enctype="multipart/form-data">
+    <input type="file" name="img">
+    <input type="submit" name="btn" value="Upload">
+</form>
+
+<img src="<?php echo BASE_URL . '/' . $user->image; ?>" alt="This User Has No Image">
 </body>
 </html>

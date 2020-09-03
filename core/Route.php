@@ -60,6 +60,7 @@ class Route
                         return true;
 //                        $flag = false;
                     } else {
+                        var_dump($url);
                         echo('Method doesnt exist.');
                     }
                 }

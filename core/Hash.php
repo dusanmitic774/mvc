@@ -7,7 +7,7 @@ class Hash
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public static function veryfy($password, $hashed_password)
+    public static function verify($password, $hashed_password)
     {
         if (password_verify($password, $hashed_password)) {
             return true;

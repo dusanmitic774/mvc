@@ -151,11 +151,15 @@ class DB
         return $this;
     }
 
-    public function first($limit = 1)
+    public function first()
     {
-        $this->orderBy()->limit($limit);
+        $result = $this->orderBy()->get();
 
-        return $this;
+        if ( ! empty($result)) {
+            return $result[0];
+        }
+
+        return false;
     }
 
     /**

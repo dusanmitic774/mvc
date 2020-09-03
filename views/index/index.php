@@ -9,21 +9,27 @@
 </head>
 <body>
 <h2>All users</h2>
+<?php echo Flash::msg('loggedin'); ?>
 <?php if (isset($users) && ! empty($users)): ?>
     <?php foreach ($users as $user): ?>
-        <ul>
-            <li><a href="users/show/<?php echo $user->id; ?>"><?php echo $user->username; ?></a></li>
+
+        <div class="container"><a href="users/show/<?php echo $user->id; ?>"><?php echo $user->username; ?></a>
             <form action="users/delete" method="post">
                 <input type="hidden" name="token">
                 <input type="hidden" name="id" value="<?php echo $user->id; ?>">
                 <input type="submit" value="delete">
             </form>
 
-            <a href="users/edit/<?php echo $user->id ?>">edit</a>
-        </ul>
+            <a class="edit" href="users/edit/<?php echo $user->id ?>">edit</a>
+        </div>
     <?php endforeach; ?>
 <?php endif; ?>
 
 <a href="users/create">Create New User</a>
+<br>
+<a href="users/logout">Log Out</a>
+<br>
+<a href="users/login">Log In</a>
+
 </body>
 </html>

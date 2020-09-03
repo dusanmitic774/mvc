@@ -12,5 +12,11 @@ Route::get('/users/edit/{id}', 'UsersController@edit');
 Route::post('/users/update', 'UsersController@update');
 Route::post('/users/delete', 'UsersController@delete');
 Route::post('/users/store', 'UsersController@store');
-Route::get('/users/login', 'UsersController@loginForm');
-Route::post('/users/login', 'UsersController@login');
+
+// Logging in
+Route::get('/users/login', 'LoginController@loginForm');
+Route::post('/users/login', 'LoginController@login');
+Route::get('/users/logout', 'LoginController@logOut');
+
+// Upload image
+Route::post('/users/upload/{id}', 'UsersController@upload');

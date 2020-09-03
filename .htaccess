@@ -3,6 +3,6 @@ Options -Indexes
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond $1 !^(config|core|css|js|fonts|robots\.txt)
+RewriteCond $1 !^(config|core|css|js|fonts|images|robots\.txt)
 
 RewriteRule ^(.+)$ index.php/$1 [L,QSA]
