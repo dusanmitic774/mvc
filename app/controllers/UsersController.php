@@ -33,23 +33,22 @@ class UsersController extends Controller
         $user  = $users->select()->find($id)->first();
 
         if (Auth::check()) {
-            if ( ! empty($user)) {
+            if (! empty($user)) {
                 if (Auth::user()->username == $user->username) {
                     $this->view->render('show/show', [
                         'user' => $user,
                     ]);
                 } else {
                     Flash::msg('loggedin', 'Not Your account');
-                    redirect('');
+                    redirect(route('home'));
                 }
             } else {
-                redirect('404');
+                redirect(route('404'));
             }
         } else {
             Flash::msg('loggedin', 'You need to log in first');
-            redirect('');
+            redirect(route('home'));
         }
-
     }
 
     public function edit($id)
@@ -57,7 +56,7 @@ class UsersController extends Controller
         $user = new User();
         $user = $user->select()->find($id)->get();
 
-        if ( ! empty($user)) {
+        if (! empty($user)) {
             $this->view->render('edit/edit', [
                 'user' => $user[0],
             ]);
@@ -68,7 +67,7 @@ class UsersController extends Controller
     {
         $user = new User();
         $user->delete($_POST['id']);
-        redirect('');
+        redirect(route('home'));
     }
 
     public function create()
@@ -89,13 +88,13 @@ class UsersController extends Controller
                 'email'    => $_POST['email'],
             ]);
 
-            redirect('');
+            redirect(route('home'));
         } else {
             $errors = $user->errors();
 
             Input::setPostData($_POST);
             Flash::errors($errors);
-            redirect('users/create');
+            redirect(route('users.create'));
         }
     }
 
@@ -107,20 +106,20 @@ class UsersController extends Controller
         $passed = $user->validateUser('update');
 
         if ($passed) {
-            if ( ! empty($result)) {
+            if (! empty($result)) {
                 $user->update([
                     'username' => $_POST['username'],
-                    'password' => $_POST['password'],
+                    'password' => Hash::password($_POST['password']),
                     'email'    => $_POST['email'],
                 ], $result->id);
 
-                redirect('');
+                redirect(route('home'));
             }
         } else {
             $errors = $user->errors();
 
             Flash::errors($errors);
-            redirect('users/edit/' . $result->id);
+            redirect(route('users.edit') . $result->id);
         }
     }
 
@@ -137,16 +136,16 @@ class UsersController extends Controller
                     echo "The file " . basename($_FILES["img"]["name"]) . " has been uploaded.";
                 } else {
                     Flash::msg('image', 'Sorry, there was an error uploading your file.');
-                    redirect('users/show/' . $id);
+                    redirect(route('users.show') . $id);
                 }
             } else {
                 Flash::msg('image', 'File is not an image');
-                redirect('users/show/' . $id);
+                redirect(route('users.show') . $id);
             }
         }
         $user = new User();
         $user->update(['image' => $target_file], $id);
 
-        redirect('');
+        redirect(route('home'));
     }
 }

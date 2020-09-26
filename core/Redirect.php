@@ -6,7 +6,6 @@ class Redirect
 
     public static function to($url, $data)
     {
-
         header('location: ' . BASE_URL . '/' . $url);
     }
 }

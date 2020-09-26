@@ -28,9 +28,9 @@ class LoginController extends Controller
 
     public function login()
     {
-
         if (Token::check($_POST['token'])) {
-            $passed = $this->user->validate([
+            $passed = $this->user->validate(
+                [
                 'username' => $_POST['username'],
                 'password' => $_POST['password'],
             ],
@@ -41,7 +41,8 @@ class LoginController extends Controller
                     'password' => [
                         'required' => true,
                     ]
-                ]);
+                ]
+            );
         } else {
             die('Token invalid');
         }
@@ -52,28 +53,26 @@ class LoginController extends Controller
             $result = $this->user->select()->where([['username', '=', Input::get('username')]])->first();
 
             // checks if username exists in db
-            if ( ! empty($result)) {
+            if (! empty($result)) {
                 $password = $result->password;
 
                 // checks if passwords match
                 if (Hash::verify($_POST['password'], $password)) {
                     Session::set('user_session', $result->id);
-                    redirect('');
+                    redirect(route('home'));
                 } else {
                     Flash::msg('password', 'Wrong Password');
-                    redirect('users/login');
                 }
-
             } else {
                 Flash::msg('error', 'No such user');
-                redirect('users/login');
+                redirect(route('users.login'));
             }
         } else {
             $errors = $this->user->errors();
 
             Input::setPostData($_POST);
             Flash::errors($errors);
-            redirect('users/login');
+            redirect(route('users.login'));
         }
     }
 
@@ -82,9 +81,9 @@ class LoginController extends Controller
         if (Auth::check()) {
             Session::delete('user_session');
 
-            redirect('');
+            redirect(route('home'));
         }
 
-        return false;
+        redirect(route('home'));
     }
 }

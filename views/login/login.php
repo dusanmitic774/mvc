@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php echo Flash::msg('error'); ?>
-<form action="/users/login" method="post">
+<form action=<?php echo route('users.login'); ?> method="post">
     <input type="hidden" name="token" value="<?php echo Token::set(); ?>">
     <label> Username:
         <input type="text" name="username" value="<?php echo Input::postData('username'); ?>">

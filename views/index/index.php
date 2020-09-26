@@ -13,23 +13,23 @@
 <?php if (isset($users) && ! empty($users)): ?>
     <?php foreach ($users as $user): ?>
 
-        <div class="container"><a href="users/show/<?php echo $user->id; ?>"><?php echo $user->username; ?></a>
-            <form action="users/delete" method="post">
+        <div class="container"><a href="<?php echo route('users.show') . $user->id; ?>"><?php echo $user->username; ?></a>
+        <form action=<?php echo route('users.delete') ?> method="post">
                 <input type="hidden" name="token">
                 <input type="hidden" name="id" value="<?php echo $user->id; ?>">
                 <input type="submit" value="delete">
             </form>
 
-            <a class="edit" href="users/edit/<?php echo $user->id ?>">edit</a>
+            <a class="edit" href="<?php echo route('users.edit') . $user->id ?>">edit</a>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
 
-<a href="users/create">Create New User</a>
+<a href=<?php echo route('users.create'); ?>>Create New User</a>
 <br>
-<a href="users/logout">Log Out</a>
+<a href=<?php echo route('users.logout'); ?>>Log Out</a>
 <br>
-<a href="users/login">Log In</a>
+<a href=<?php echo route('users.login'); ?>>Log In</a>
 
 </body>
 </html>

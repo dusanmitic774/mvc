@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form action="/users/update" method="post">
+<form action=<?php echo route('users.update'); ?> method="post">
     <input type="hidden" name="token" value="<?php echo Token::set(); ?>">
     <input type="hidden" name="id" value="<?php echo $user->id; ?>">
     <label> Username:
